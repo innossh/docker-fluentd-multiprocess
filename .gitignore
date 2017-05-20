@@ -1,0 +1,4 @@
+/fluentd-multi/log/*
+!/fluentd-multi/log/.gitkeep
+/fluentd-multi/run/*
+!/fluentd-multi/run/.gitkeep
