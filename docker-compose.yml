@@ -12,13 +12,14 @@ services:
     depends_on:
       - fluentd
   fluentd:
-    image: fluent/fluentd:v0.14.14
+    image: fluent/fluentd:v0.12.36
     ports:
       - "24224:24224"
     volumes:
       - ./fluentd/etc/fluent.conf:/fluentd/etc/fluent.conf
     depends_on:
       - fluentd-multi
+      - fluentd14-multi
   fluentd-multi:
     build: ./fluentd-multi
     ports:
@@ -30,8 +31,19 @@ services:
       - ./fluentd-multi/run:/fluentd/run
     depends_on:
       - fluentd-out
+  fluentd14-multi:
+    image: fluent/fluentd:v0.14.17
+    ports:
+      - "24224"
+      - "25000:25000"
+      - "25001:25001"
+    volumes:
+      - ./fluentd14-multi/etc/fluent.conf:/fluentd/etc/fluent.conf
+      - ./fluentd14-multi/log:/fluentd/log
+    depends_on:
+      - fluentd-out
   fluentd-out:
-    image: fluent/fluentd:v0.14.14
+    image: fluent/fluentd:v0.12.36
     ports:
       - "24224"
     volumes:
